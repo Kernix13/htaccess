@@ -6,8 +6,7 @@ htaccess code snippets from my research on how to:
 2. Secure WordPress
 3. And some miscelleaneous stuff
 
-Default code for single installs of WordPress - Security
-
+Default code for single installs of WordPresS
 ```apacheconf
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
