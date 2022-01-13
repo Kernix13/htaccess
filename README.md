@@ -43,37 +43,64 @@ DefaultLanguage en
 AddDefaultCharset UTF-8
 ```
 
-> # Security next 70 lines, down to hot linking
->	# Protect important files
->	# Could not find php.ini or php5.ini so remove that one
->	# what about 'Allow from sx.xxx.xxx.xxx' for all your IPs? choose to limit login attempts in thse cases
+> Security next 70 lines, down to hot linking
+>	Protect important files
+>	Could not find php.ini or php5.ini so remove that one
+>	what about 'Allow from sx.xxx.xxx.xxx' for all your IPs? choose to limit login attempts in thse cases
 
 ```apacheconf
-
+<FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$">
+Order deny,allow
+Deny from all
+</FilesMatch>
 ```
 
-## 
+secure htaccess itslf, one site has allow, deny (diff order) and satisfy all instead of deny all
 
 ```apacheconf
-
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
 ```
 
-## 
+secure admin area
 
 ```apacheconf
-
+<Files wp-login.php>
+order deny,allow
+Deny from all
+Allow from xx.xxx.xxx.xxx
+</Files>
 ```
 
-## 
+another one just for config?
 
 ```apacheconf
-
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
 ```
 
-## 
+What is this for?
 
 ```apacheconf
+Order deny,allow
+Deny from all
+<Files ~ ".(xml|css|jpe?g|png|gif|js)$">
+Allow from all
+</Files>
+```
 
+Deny Access To Certain Files
+
+```apacheconf
+<files your-file-name.txt>
+order allow,deny
+deny from all
+</files>
 ```
 
 
