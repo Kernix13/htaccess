@@ -1,9 +1,10 @@
 # htaccess
 
-Code from my research on how to:
+htaccess code snippets from my research on how to:
 
 1. Speed up WordPress
 2. Secure WordPress
+3. And some miscelleaneous stuff
 
 Default code for single installs of WordPress - Security
 
@@ -36,7 +37,7 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-# default language and char set 
+default language and char set 
 
 ```apacheconf
 DefaultLanguage en
@@ -103,6 +104,125 @@ deny from all
 </files>
 ```
 
+Restrict admin access, edit 'path-to-your-site', also edit IP Address One$...with the actual IP addresses you want to have access to these pages
 
+```apacheconf
+# Limit logins and admin by IP
+<Limit GET POST PUT>
+order deny,allow
+deny from all
+allow from xx.xx.xx.xx
+</Limit>
+```
 
+do these lines go with the bloack above?
+
+```apacheconf
+ErrorDocument 401 /path-to-your-site/index.php?error=404
+ErrorDocument 403 /path-to-your-site/index.php?error=404
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_URI} ^(.*)?wp-login\.php(.*)$ [OR]
+RewriteCond %{REQUEST_URI} ^(.*)?wp-admin$
+RewriteCond %{REMOTE_ADDR} !^IP Address One$
+RewriteCond %{REMOTE_ADDR} !^IP Address Two$
+RewriteCond %{REMOTE_ADDR} !^IP Address Three$
+RewriteRule ^(.*)$ - [R=403,L]
+</IfModule>
+```
+Prevent directory browsing: `Options All -Indexes`
+
+Restrict access to php files
+
+```apacheconf
+RewriteCond %{REQUEST_URI} !^/wp-content/plugins/file/to/exclude\.php
+RewriteCond %{REQUEST_URI} !^/wp-content/plugins/directory/to/exclude/
+RewriteRule wp-content/plugins/(.*\.php)$ - [R=404,L]
+RewriteCond %{REQUEST_URI} !^/wp-content/themes/file/to/exclude\.php
+RewriteCond %{REQUEST_URI} !^/wp-content/themes/directory/to/exclude/
+RewriteRule wp-content/themes/(.*\.php)$ - [R=404,L]
+```
+Restrict PHP File Execution (hopefully not WordPress PHP files)
+
+```apacheconf
+<Files "*.php">
+Order Deny,Allow
+Deny from All
+</Files>
+</Directory>
+```
+
+Protect Against Script Injections
+
+```apacheconf
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+```
+
+Securing the wp-includes Directory
+
+```apacheconf
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^wp-admin/includes/ - [F,L]
+RewriteRule !^wp-includes/ - [S=3]
+RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+RewriteRule ^wp-includes/theme-compat/ - [F,L]
+</IfModule>
+```
+
+Prevent Username Enumeration: 
+```apacheconf
+RewriteCond %{QUERY_STRING} author=d
+RewriteRule ^ /? [L,R=301]
+```
+
+Enable Browser Cache (Double-check these values):
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
+
+ss
+
+```apacheconf
+
+```
 
