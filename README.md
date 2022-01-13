@@ -6,7 +6,10 @@ htaccess code snippets from my research on how to:
 2. Secure WordPress
 3. And some miscelleaneous stuff
 
-Default code for single installs of WordPresS
+I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own peril! Do your own research to doubble-check what I have here.
+
+Default code for single installs of WordPress:
+
 ```apacheconf
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
@@ -20,7 +23,7 @@ RewriteRule . /index.php [L]
 # END WordPress
 ```
 
-If WordPress is installed in some subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is /wordpress/)
+If WordPress is installed in some subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is /wordpress/):
 
 ```apacheconf
 # BEGIN WordPress	
@@ -36,17 +39,15 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-default language and char set 
+Default language and char set:
 
 ```apacheconf
 DefaultLanguage en
 AddDefaultCharset UTF-8
 ```
 
-> Security next 70 lines, down to hot linking
->	Protect important files
->	Could not find php.ini or php5.ini so remove that one
->	what about 'Allow from sx.xxx.xxx.xxx' for all your IPs? choose to limit login attempts in thse cases
+Security next 70 lines, down to hot linking. Protect important files. Could not find php.ini or php5.ini so remove that one. 
+What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases:
 
 ```apacheconf
 <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$">
@@ -55,7 +56,7 @@ Deny from all
 </FilesMatch>
 ```
 
-secure htaccess itslf, one site has allow, deny (diff order) and satisfy all instead of deny all
+Secure htaccess itself, one site has `allow`, `deny` (different order) and `satisfy all` instead of `deny all`:
 
 ```apacheconf
 <files ~ "^.*\.([Hh][Tt][Aa])">
@@ -65,7 +66,7 @@ satisfy all
 </files>
 ```
 
-secure admin area
+Secure admin area:
 
 ```apacheconf
 <Files wp-login.php>
@@ -75,7 +76,7 @@ Allow from xx.xxx.xxx.xxx
 </Files>
 ```
 
-another one just for config?
+Another one just for config?
 
 ```apacheconf
 <files wp-config.php>
@@ -94,7 +95,7 @@ Allow from all
 </Files>
 ```
 
-Deny Access To Certain Files
+Deny Access To Certain Files:
 
 ```apacheconf
 <files your-file-name.txt>
@@ -103,7 +104,7 @@ deny from all
 </files>
 ```
 
-Restrict admin access, edit 'path-to-your-site', also edit IP Address One$...with the actual IP addresses you want to have access to these pages
+Restrict admin access, edit 'path-to-your-site', also edit IP Address One$...with the actual IP addresses you want to have access to these pages:
 
 ```apacheconf
 # Limit logins and admin by IP
@@ -114,7 +115,7 @@ allow from xx.xx.xx.xx
 </Limit>
 ```
 
-do these lines go with the bloack above?
+Do these lines go with the block above?:
 
 ```apacheconf
 ErrorDocument 401 /path-to-your-site/index.php?error=404
@@ -132,7 +133,7 @@ RewriteRule ^(.*)$ - [R=403,L]
 ```
 Prevent directory browsing: `Options All -Indexes`
 
-Restrict access to php files
+Restrict access to php files:
 
 ```apacheconf
 RewriteCond %{REQUEST_URI} !^/wp-content/plugins/file/to/exclude\.php
@@ -142,7 +143,7 @@ RewriteCond %{REQUEST_URI} !^/wp-content/themes/file/to/exclude\.php
 RewriteCond %{REQUEST_URI} !^/wp-content/themes/directory/to/exclude/
 RewriteRule wp-content/themes/(.*\.php)$ - [R=404,L]
 ```
-Restrict PHP File Execution (hopefully not WordPress PHP files)
+Restrict PHP File Execution (hopefully not WordPress PHP files):
 
 ```apacheconf
 <Files "*.php">
@@ -152,7 +153,7 @@ Deny from All
 </Directory>
 ```
 
-Protect Against Script Injections
+Protect Against Script Injections:
 
 ```apacheconf
 Options +FollowSymLinks
@@ -163,7 +164,7 @@ RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2})
 RewriteRule ^(.*)$ index.php [F,L]
 ```
 
-Securing the wp-includes Directory
+Securing the wp-includes Directory:
 
 ```apacheconf
 <IfModule mod_rewrite.c>
@@ -247,7 +248,7 @@ ExpiresDefault "access 3 days"
 ## EXPIRES HEADER CACHING ##
 ```
 
-Enable GZIP
+Enable GZIP:
 
 ```apacheconf
 <IfModule mod_deflate.c>
@@ -276,7 +277,7 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
 ```
 
-Remove browser bugs (only needed for really old browsers)
+Remove browser bugs (only needed for really old browsers):
 
 ```apacheconf
 BrowserMatch ^Mozilla/4 gzip-only-text/html
@@ -285,4 +286,48 @@ BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 Header append Vary User-Agent
 
 </IfModule>
+```
+
+301 Redirect syntax (two versions:
+
+```apacheconf
+Redirect 301 /oldpage.html http://www.yoursite.com/newpage.html
+Redirect 301 /oldpage2.html http://www.yoursite.com/folder/
+
+RedirectMatch 301 /oldpage.html http://www.yoursite.com/newpage.html
+RedirectMatch 301 /oldpage2.html http://www.yoursite.com/folder/
+```
+
+Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page which is an HTML file that I loaded in my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular.
+
+```apacheconf
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+```
+
+```apacheconf
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC, L]
+```
+
+```apacheconf
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L] 
+RewriteRule ^([^\.]+)$ $1.php [NC,L] 
+```
+
+```apacheconf
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/$ $1.html
+RewriteRule ^([^/]+)/([^/]+)/$ /$1/$2.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ /$1/ [R=301,L]
 ```
