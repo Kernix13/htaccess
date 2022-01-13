@@ -184,10 +184,68 @@ RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
 ```
 
-Enable Browser Cache (Double-check these values):
+Enable Browser Cache (Double-check these values). More exotic ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
 ```apacheconf
+## EXPIRES HEADER CACHING ##
+<IfModule mod_expires.c>
+ExpiresActive On
 
+# MEDIA
+ExpiresByType image/jpg   "access 1 year"
+ExpiresByType image/jpeg  "access 1 year"
+ExpiresByType image/gif   "access 1 year"
+ExpiresByType image/png   "access 1 year"
+ExpiresByType image/svg   "access 1 year"
+ExpiresByType image/webp  "access plus 4 months"
+ExpiresByType image/avif  "access plus 4 months"
+ExpiresByType video/ogg   "access plus 4 months"
+ExpiresByType audio/ogg   "access plus 4 months"
+ExpiresByType video/mp4   "access plus 4 months"
+ExpiresByType video/webm  "access plus 4 months"
+
+# Favicon (cannot be renamed!)
+ExpiresByType image/x-icon "access 1 year"
+
+ExpiresByType image/avif-sequence   "access plus 4 months"
+ExpiresByType image/svg+xml         "access plus 1 month"
+
+# HTML, CSS
+ExpiresByType text/html   "access 0 seconds"
+ExpiresByType text/css    "access 1 month"
+
+# PDF
+ExpiresByType application/pdf         "access 1 month"
+
+# JAVASCRIPT
+ExpiresByType application/javascript  "access 1 month"
+
+# HTML components (HTCs)
+ExpiresByType text/x-component  "access plus 1 month"
+
+# Manifest files
+ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+
+# Data interchange
+ExpiresByType text/xml                "access plus 0 seconds"
+ExpiresByType application/json        "access plus 0 seconds"
+ExpiresByType application/xml         "access plus 0 seconds"
+
+# Web feeds
+ExpiresByType application/rss+xml     "access plus 1 hour"
+ExpiresByType application/atom+xml    "access plus 1 hour"
+
+# Web fonts
+ExpiresByType font/ttf    "access plus 4 months"
+ExpiresByType font/otf    "access plus 4 months"
+ExpiresByType font/woff   "access plus 4 months"
+ExpiresByType font/woff2  "access plus 4 months"
+ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+
+ExpiresDefault "access 3 days"
+</IfModule>
+## EXPIRES HEADER CACHING ##
 ```
 
 ss
