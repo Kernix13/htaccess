@@ -298,7 +298,7 @@ RedirectMatch 301 /oldpage.html http://www.yoursite.com/newpage.html
 RedirectMatch 301 /oldpage2.html http://www.yoursite.com/folder/
 ```
 
-Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page which is an HTML file that I loaded in my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular.
+Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page which is an HTML file that I loaded that page in my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular. I didn't want to mess with it too much because WordPress is using the same `.htaccess` file:
 
 ```apacheconf
 RewriteEngine on
