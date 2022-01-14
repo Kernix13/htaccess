@@ -11,7 +11,7 @@ I know some of these are accurate but I'm not positive on the effectiveness or q
 1. [Code for Security](#code-for-security)
 1. [Code for Speed](#code-for-speed)
 1. [Miscellaneous Code](#miscellaneous-code)
-1. [Contributing](#ontributing)
+1. [Contributing](#contributing)
 
 ## WordPress Installs
 
