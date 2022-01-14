@@ -15,7 +15,7 @@ I know some of these are accurate but I'm not positive on the effectiveness or q
 
 ## WordPress Installs
 
-The first code snippet is automatically added when you install WordPress. However, use the code blow that instaed of using a plugin for the scenarios listed.
+The first code snippet is automatically added when you install WordPress. However, the blocka after the basic install block is for installing WordPress on a subdomain or in subfolders. I also have a link for the code for WordPress multi-sites. Don't use a plugin if you do not need to for these scenarios
 
 Default code for single installs of WordPress:
 
@@ -50,7 +50,7 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-### Code for Security 
+## Code for Security 
 
 My goal for this section is to do as much security As I can myself and then look for a slim plugin to cover the rest. I know there are additional security snippets that you can add into other files like `wp-config.php`. The question is: **How can I find out everything that Wordfence does?** Then how do I find a plugin that covers the areas that the code below doesn't cover?
 
