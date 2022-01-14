@@ -10,7 +10,7 @@ I know some of these are accurate but I'm not positive on the effectiveness or q
 
 1. [Code for Security](#code-for-security)
 2. [Code for Speed](#code-for-speed)
-3. [Miscellaneous Code](#miscellaneous-code)
+3. [Miscellaneous](#miscellaneous)
 4. [Contributing](#contributing)
 
 ## WordPress Installs
@@ -281,7 +281,7 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
 ```
 
-## Miscellaneaous Code
+## Miscellaneous
 
 Remove browser bugs (only needed for really old browsers):
 
