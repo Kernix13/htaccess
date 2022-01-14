@@ -346,4 +346,4 @@ AddDefaultCharset UTF-8
 
 ## Contributing
 
-Please open an issue if you know better htaccess code snippets than are listed here, or if you want to add better desriptions and notes. 
+Please open an issue if you know better htaccess code snippets than are listed here, or if you want to add better desriptions and notes. I would like to make this readme file a go-to resource for developers.
