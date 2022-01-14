@@ -8,6 +8,8 @@ htaccess code snippets from my research on how to:
 
 I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
 
+## WordPress Installs
+
 Default code for single installs of WordPress:
 
 ```apacheconf
@@ -186,6 +188,7 @@ Prevent Username Enumeration:
 RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
 ```
+## Speed
 
 Enable Browser Cache (double-check these values). The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
