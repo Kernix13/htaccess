@@ -6,7 +6,7 @@ htaccess code snippets from my research on how to:
 2. Speed up WordPress
 3. And some miscelleaneous stuff
 
-I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
+I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. ome of  the snippets are WordPress specific, others are general purpose.
 
 1. [Code for Security](#code-for-security)
 2. [Code for Speed](#code-for-speed)
@@ -138,7 +138,7 @@ RewriteCond %{REMOTE_ADDR} !^IP Address Three$
 RewriteRule ^(.*)$ - [R=403,L]
 </IfModule>
 ```
-To prevent directory browsing use: `Options All -Indexes`
+To prevent directory browsing by hiding WordPress directions use: `Options All -Indexes`
 
 Restrict access to php files:
 
@@ -192,7 +192,11 @@ RewriteRule ^ /? [L,R=301]
 ```
 ## Code for Speed
 
-Right now I only have two categories of snippets here: 1. EXPIRES HEADER CACHING, 2. Enable GZIP. Are there any other snippets that assist with page load and speed?
+Right now I only have two categories of snippets here: 1. EXPIRES HEADER CACHING, 2. Enable GZIP. Other things that may help are:
+
+- Rule for setting `Cache-Control` headers
+- Activate the Keep Alive resource
+- Prevent image hotlinking
 
 Enable Browser Cache (double-check these values). I'm nt sure if these help with speed or if they are  just best practices that browsers want you to set. Perhaps both. The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
@@ -288,6 +292,10 @@ AddOutputFilterByType DEFLATE text/xml
 ```
 
 ## Miscellaneous Code
+
+Some other options other than what you see below are:
+- Remove the slash "/" at the end of the URL
+- Create a custom 404 Error page
 
 Remove browser bugs (only needed for really old browsers):
 
