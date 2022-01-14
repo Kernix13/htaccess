@@ -2,8 +2,8 @@
 
 htaccess code snippets from my research on how to:
 
-1. Speed up WordPress
-2. Secure WordPress
+1. Secure WordPress
+2. Speed up WordPress
 3. And some miscelleaneous stuff
 
 I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
@@ -11,6 +11,7 @@ I know some of these are accurate but I'm not positive on the effectiveness or q
 1. [Code for Security](#code-for-security)
 1. [Code for Speed](#code-for-speed)
 1. [Miscellaneous Code](#miscellaneous-code)
+1. [Contributing](#ontributing)
 
 ## WordPress Installs
 
@@ -342,3 +343,7 @@ Default language and charset though I do not think this is necessary:
 DefaultLanguage en
 AddDefaultCharset UTF-8
 ```
+
+## Contributing
+
+Please open an issue if you know better htaccess code snippets than are listed here, or if you want to add better desriptions and notes. 
