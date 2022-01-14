@@ -8,6 +8,10 @@ htaccess code snippets from my research on how to:
 
 I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
 
+1. [Code for Security](#code-for-security)
+1. [Code for Speed](#code-for-speed)
+1. [Miscellaneous Code](#miscellaneous-code)
+
 ## WordPress Installs
 
 Default code for single installs of WordPress:
@@ -43,7 +47,7 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-### Security 
+### Code for Security 
 
 The next 70 lines, down to hot linking. Also code for protecting important files. What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
 
@@ -181,7 +185,7 @@ Prevent Username Enumeration:
 RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
 ```
-## Speed
+## Code for Speed
 
 Enable Browser Cache (double-check these values). The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
@@ -276,7 +280,7 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
 ```
 
-## Miscellaneaous
+## Miscellaneaous Code
 
 Remove browser bugs (only needed for really old browsers):
 
