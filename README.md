@@ -6,7 +6,7 @@ htaccess code snippets from my research on how to:
 2. Secure WordPress
 3. And some miscelleaneous stuff
 
-I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own peril! Do your own research to doubble-check what I have here.
+I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
 
 Default code for single installs of WordPress:
 
@@ -23,7 +23,9 @@ RewriteRule . /index.php [L]
 # END WordPress
 ```
 
-If WordPress is installed in some subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is /wordpress/):
+For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1. Subfolder example, 2. SubDomain example. Go to [WordPress htaccess Multisite](https://wordpress.org/support/article/htaccess/#multisite) for the code.
+
+If WordPress is installed in some subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is `/wordpress/`):
 
 ```apacheconf
 # BEGIN WordPress	
