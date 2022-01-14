@@ -43,13 +43,6 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-Default language and charset though I do not think this is necessary:
-
-```apacheconf
-DefaultLanguage en
-AddDefaultCharset UTF-8
-```
-
 ### Security 
 
 The next 70 lines, down to hot linking. Also code for protecting important files. What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
@@ -283,6 +276,8 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
 ```
 
+## Miscellaneaous
+
 Remove browser bugs (only needed for really old browsers):
 
 ```apacheconf
@@ -336,4 +331,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
 RewriteRule (.*)$ /$1/ [R=301,L]
+```
+Default language and charset though I do not think this is necessary:
+
+```apacheconf
+DefaultLanguage en
+AddDefaultCharset UTF-8
 ```
