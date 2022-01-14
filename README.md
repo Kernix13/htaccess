@@ -41,15 +41,16 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
-Default language and char set:
+Default language and charset though I do not think this is necessary:
 
 ```apacheconf
 DefaultLanguage en
 AddDefaultCharset UTF-8
 ```
 
-Security next 70 lines, down to hot linking. Protect important files. Could not find php.ini or php5.ini so remove that one. 
-What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases:
+### Security 
+
+The next 70 lines, down to hot linking. Also code for protecting important files. What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
 
 ```apacheconf
 <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$">
@@ -58,7 +59,7 @@ Deny from all
 </FilesMatch>
 ```
 
-Secure htaccess itself, one site has `allow`, `deny` (different order) and `satisfy all` instead of `deny all`:
+Secure htaccess itself: one site I found has `allow`, `deny` (different order) and `satisfy all` instead of `deny all`:
 
 ```apacheconf
 <files ~ "^.*\.([Hh][Tt][Aa])">
@@ -78,7 +79,7 @@ Allow from xx.xxx.xxx.xxx
 </Files>
 ```
 
-Another one just for config?
+Another one just for config file:
 
 ```apacheconf
 <files wp-config.php>
@@ -87,7 +88,7 @@ deny from all
 </files>
 ```
 
-What is this for?
+What is this for? Not sure:
 
 ```apacheconf
 Order deny,allow
@@ -97,7 +98,7 @@ Allow from all
 </Files>
 ```
 
-Deny Access To Certain Files:
+Deny Access To Certain Files (example):
 
 ```apacheconf
 <files your-file-name.txt>
@@ -106,7 +107,7 @@ deny from all
 </files>
 ```
 
-Restrict admin access, edit 'path-to-your-site', also edit IP Address One$...with the actual IP addresses you want to have access to these pages:
+Restrict logins and admin access:
 
 ```apacheconf
 # Limit logins and admin by IP
@@ -117,7 +118,7 @@ allow from xx.xx.xx.xx
 </Limit>
 ```
 
-Do these lines go with the block above?:
+Edit `path-to-your-site` and `IP Address One$` and `$Two`, etc. with the actual IP addresses you want to have access to these pages:
 
 ```apacheconf
 ErrorDocument 401 /path-to-your-site/index.php?error=404
@@ -133,7 +134,7 @@ RewriteCond %{REMOTE_ADDR} !^IP Address Three$
 RewriteRule ^(.*)$ - [R=403,L]
 </IfModule>
 ```
-Prevent directory browsing: `Options All -Indexes`
+To prevent directory browsing use: `Options All -Indexes`
 
 Restrict access to php files:
 
@@ -186,7 +187,7 @@ RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
 ```
 
-Enable Browser Cache (Double-check these values). More exotic ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
+Enable Browser Cache (double-check these values). The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
 ```apacheconf
 ## EXPIRES HEADER CACHING ##
@@ -300,7 +301,7 @@ RedirectMatch 301 /oldpage.html http://www.yoursite.com/newpage.html
 RedirectMatch 301 /oldpage2.html http://www.yoursite.com/folder/
 ```
 
-Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page which is an HTML file that I loaded that page in my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular. I didn't want to mess with it too much because WordPress is using the same `.htaccess` file:
+Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page, which is an HTML file, that I loaded into my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular. I didn't want to mess with it too much because WordPress is using the same `.htaccess` file:
 
 ```apacheconf
 RewriteEngine on
