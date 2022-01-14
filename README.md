@@ -9,9 +9,9 @@ htaccess code snippets from my research on how to:
 I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here.
 
 1. [Code for Security](#code-for-security)
-1. [Code for Speed](#code-for-speed)
-1. [Miscellaneous Code](#miscellaneous-code)
-1. [Contributing](#contributing)
+2. [Code for Speed](#code-for-speed)
+3. [Miscellaneous Code](#miscellaneous-code)
+4. [Contributing](#contributing)
 
 ## WordPress Installs
 
