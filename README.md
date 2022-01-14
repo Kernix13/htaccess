@@ -1,4 +1,4 @@
-# htaccess
+# htaccess Code Snippets
 
 htaccess code snippets from my research on how to:
 
