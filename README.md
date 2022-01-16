@@ -260,8 +260,8 @@ Enable GZIP:
 
 ```apacheconf
 <IfModule mod_deflate.c>
-
-# Compress HTML, CSS, JavaScript, Text, XML and fonts - what is this?
+AddType x-font/woff .woff
+AddType x-font/ttf .ttf
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
@@ -283,7 +283,10 @@ AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/javascript
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
-
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE x-font/ttf
+AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+AddOutputFilterByType DEFLATE font/opentype font/ttf font/eot font/otf
 </IfModule>
 ```
 
