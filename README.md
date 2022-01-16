@@ -253,7 +253,7 @@ ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
 
 ExpiresDefault "access 3 days"
 </IfModule>
-## EXPIRES HEADER CACHING ##
+## END EXPIRES HEADER CACHING ##
 ```
 
 Enable GZIP:
@@ -283,6 +283,8 @@ AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/javascript
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/xml
+
+</IfModule>
 ```
 
 ## Miscellaneous Code
