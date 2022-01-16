@@ -259,6 +259,7 @@ ExpiresDefault "access 3 days"
 Enable GZIP:
 
 ```apacheconf
+# BEGIN Gzip
 <IfModule mod_deflate.c>
 AddType x-font/woff .woff
 AddType x-font/ttf .ttf
@@ -287,6 +288,7 @@ AddOutputFilterByType DEFLATE text/xml
 AddOutputFilterByType DEFLATE x-font/ttf
 AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
 AddOutputFilterByType DEFLATE font/opentype font/ttf font/eot font/otf
+# END Gzip
 </IfModule>
 ```
 
