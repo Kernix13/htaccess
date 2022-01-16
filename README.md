@@ -220,18 +220,16 @@ ExpiresByType video/ogg   "access plus 4 months"
 ExpiresByType video/mp4   "access plus 4 months"
 ExpiresByType video/webm  "access plus 4 months"
 
-# HTML, CSS
+# HTML, CSS, HTML components (HTCs)
 ExpiresByType text/html   "access 0 seconds"
 ExpiresByType text/css    "access 1 month"
+ExpiresByType text/x-component  "access plus 1 month"
 
 # PDF
-ExpiresByType application/pdf         "access 1 month"
+ExpiresByType application/pdf   "access 1 month"
 
 # JAVASCRIPT
 ExpiresByType application/javascript  "access 1 month"
-
-# HTML components (HTCs)
-ExpiresByType text/x-component  "access plus 1 month"
 
 # Manifest files
 ExpiresByType text/cache-manifest                   "access plus 0 seconds"
