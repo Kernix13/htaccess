@@ -213,16 +213,12 @@ ExpiresByType image/png   "access 1 year"
 ExpiresByType image/svg   "access 1 year"
 ExpiresByType image/webp  "access plus 4 months"
 ExpiresByType image/avif  "access plus 4 months"
-ExpiresByType video/ogg   "access plus 4 months"
+ExpiresByType image/x-icon  "access 1 year"
+ExpiresByType image/svg+xml "access plus 1 month"
 ExpiresByType audio/ogg   "access plus 4 months"
+ExpiresByType video/ogg   "access plus 4 months"
 ExpiresByType video/mp4   "access plus 4 months"
 ExpiresByType video/webm  "access plus 4 months"
-
-# Favicon (cannot be renamed!)
-ExpiresByType image/x-icon "access 1 year"
-
-ExpiresByType image/avif-sequence   "access plus 4 months"
-ExpiresByType image/svg+xml         "access plus 1 month"
 
 # HTML, CSS
 ExpiresByType text/html   "access 0 seconds"
