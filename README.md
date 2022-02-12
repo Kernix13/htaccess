@@ -32,12 +32,6 @@ RewriteRule . /index.php [L]
 # END WordPress
 ```
 - - - 
-ALL TAG BELOW HERE
-- - - 
-
-
-
-
 
 For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1. Subfolder example, 2. SubDomain example. Go to [WordPress htaccess Multisite](https://wordpress.org/support/article/htaccess/#multisite) for the code.
 
