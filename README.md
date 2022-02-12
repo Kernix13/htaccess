@@ -15,7 +15,7 @@ I know some of these are accurate but I'm not positive on the effectiveness or q
 
 ## WordPress Installs
 
-The first code snippet is automatically added when you install WordPress. However, the blocka after the basic install block is for installing WordPress on a subdomain or in subfolders. I also have a link for the code for WordPress multi-sites. Don't use a plugin if you do not need to for these scenarios
+The first code snippet is automatically added when you install WordPress. However, the code blocks after the basic install block is for installing WordPress on a subdomain or in subfolders. I also have a link for the code for WordPress multi-sites. Don't use a plugin if you do not need to for these scenarios
 
 Default code for single installs of WordPress:
 
