@@ -6,7 +6,7 @@ htaccess code snippets from my research on how to:
 2. Speed up WordPress
 3. And some miscelleaneous stuff
 
-I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. ome of  the snippets are WordPress specific, others are general purpose.
+I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. Some of  the snippets are WordPress specific, others are general purpose.
 
 1. [Code for Security](#code-for-security)
 2. [Code for Speed](#code-for-speed)
@@ -35,7 +35,7 @@ RewriteRule . /index.php [L]
 
 For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1. Subfolder example, 2. SubDomain example. Go to [WordPress htaccess Multisite](https://wordpress.org/support/article/htaccess/#multisite) for the code.
 
-If WordPress is installed in some subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is `/wordpress/`):
+If WordPress is installed in a subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is `/wordpress/`):
 
 ```apacheconf
 # BEGIN WordPress	
@@ -53,9 +53,9 @@ RewriteRule . /wordpress/index.php [L]
 
 ## Code for Security 
 
-My goal for this section is to do as much security As I can myself and then look for a slim plugin to cover the rest. I know there are additional security snippets that you can add into other files like `wp-config.php`. The question is: **How can I find out everything that Wordfence does?** Then how do I find a plugin that covers the areas that the code below doesn't cover?
+My goal for this section is to do as much security as I can myself and then look for a slim plugin to cover the rest. I know there are additional security snippets that you can add into other files like `wp-config.php`. The question is: **How can I find out everything that Wordfence does?** Then how do I find a plugin that covers the areas that the code below doesn't cover?
 
-The next 70 lines, down to hot linking. Also code for protecting important files. What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
+What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
 
 ```apacheconf
 <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$">
@@ -103,7 +103,7 @@ Allow from all
 </Files>
 ```
 
-Deny Access To Certain Files (example):
+Deny access to certain files (example):
 
 ```apacheconf
 <files your-file-name.txt>
