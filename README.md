@@ -366,6 +366,18 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 ```
+
+Here is what I tried after END WordPress and it did not work:
+```apacheconf
+# BEGIN custom rewrite for html files
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html
+</IfModule>
+# END custom rewrite rule
+```
 Default language and charset though I do not think this is necessary:
 
 ```apacheconf
