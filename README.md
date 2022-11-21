@@ -8,15 +8,49 @@ htaccess code snippets from my research on how to:
 
 I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. Some of  the snippets are WordPress specific, others are general purpose.
 
+Some of the snippets are short so I am not adding links to each individual code block, but you will see them nested under the main category.
+
+<div id="back-to-top"></div>
+
+## Table of Contents
+
 1. [WordPress Installs](#wordpress-installs)
+   1. [Single install](#single-install)
+   1. [Subdirectory install](#subdirectory-install)
 1. [Code for Security](#code-for-security)
+   1. Limit login attempts
+   1. Secure the htaccess file
+   1. Secure admin area
+   1. Secure wp-config.php
+   1. Deny specific file access
+   1. Restrict logins and admin access
+   1. Prevent directory browsing
+   1. Restrict access to php files
+   1. Restrict PHP File Execution
+   1. Protect Against Script Injections
+   1. Securing the wp-includes Directory
+   1. Prevent Username Enumeration
 1. [Code for Speed](#code-for-speed)
+   1. [Enable Browser Cache](#enable-browser-cache)
+   1. [Enable GZIP](#enable-gzip)
 1. [Miscellaneous Code](#miscellaneous-code)
+   1. Remove browser bugs
+   1. [301 Redirect syntax](#301-redirect-syntax)
+   1. [Hide page extensions](#hide-page-extensions)
+   1. [Default language and charset](#default-language-and-charset)
+1. [Woocommerce](#woocommerce)
+   1. [Redirect syntax](#redirect-syntax)
+   1. [Bluehost Nameservers](#bluehost-nameservers)
+   1. [The deactivation code](#the-deactivation-code)
+   1. [MySQL queries to check for Woocommerce fields](#mysql-queries-to-check-for-woocommerce-fields)
+   1. [IMPORTANT NOTE](#important-note)
 1. [Contributing](#contributing)
 
 ## WordPress Installs
 
 The first code snippet is automatically added when you install WordPress. However, the code blocks after the basic install block is for installing WordPress on a subdomain or in subfolders. I also have a link for the code for WordPress multi-sites. Don't use a plugin if you do not need to for these scenarios
+
+### Single install 
 
 Default code for single installs of WordPress:
 
@@ -36,6 +70,10 @@ RewriteRule . /index.php [L]
 
 For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1. Subfolder example, 2. SubDomain example. Go to [WordPress htaccess Multisite](https://wordpress.org/support/article/htaccess/#multisite) for the code.
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
+### Subdirectory install
+
 If WordPress is installed in a subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is `/wordpress/`):
 
 ```apacheconf
@@ -52,11 +90,15 @@ RewriteRule . /wordpress/index.php [L]
 # END WordPress
 ```
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 ## Code for Security 
 
 My goal for this section is to do as much security as I can myself and then look for a slim plugin to cover the rest. I know there are additional security snippets that you can add into other files like `wp-config.php`. The question is: **How can I find out everything that Wordfence does?** Then how do I find a plugin that covers the areas that the code below doesn't cover?
 
-What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? Choose to limit login attempts in those cases. for security involving php.ini or php5.ini:
+> What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? 
+
+Choose to limit login attempts in those cases. for security involving `php.ini` or `php5.ini`:
 
 ```apacheconf
 <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$">
@@ -104,6 +146,8 @@ Allow from all
 </Files>
 ```
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 Deny access to certain files (example):
 
 ```apacheconf
@@ -142,6 +186,8 @@ RewriteRule ^(.*)$ - [R=403,L]
 ```
 To prevent directory browsing by hiding WordPress directions use: `Options All -Indexes`
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 Restrict access to php files:
 
 ```apacheconf
@@ -173,6 +219,8 @@ RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2})
 RewriteRule ^(.*)$ index.php [F,L]
 ```
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 Securing the wp-includes Directory:
 
 ```apacheconf
@@ -192,6 +240,9 @@ Prevent Username Enumeration:
 RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
 ```
+
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 ## Code for Speed
 
 Right now I only have two categories of snippets here: 1. EXPIRES HEADER CACHING, 2. Enable GZIP. Other things that may help are:
@@ -199,6 +250,8 @@ Right now I only have two categories of snippets here: 1. EXPIRES HEADER CACHING
 - Rule for setting `Cache-Control` headers
 - Activate the Keep Alive resource
 - Prevent image hotlinking
+
+### Enable Browser Cache
 
 Enable Browser Cache (double-check these values). I'm nt sure if these help with speed or if they are  just best practices that browsers want you to set. Perhaps both. The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
@@ -258,7 +311,9 @@ ExpiresDefault "access 3 days"
 ## END EXPIRES HEADER CACHING ##
 ```
 
-Enable GZIP:
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
+### Enable GZIP
 
 ```apacheconf
 # BEGIN Gzip
@@ -294,13 +349,15 @@ AddOutputFilterByType DEFLATE font/opentype font/ttf font/eot font/otf
 # END Gzip
 ```
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 ## Miscellaneous Code
 
 Some other options other than what you see below are:
 - Remove the slash "/" at the end of the URL
 - Create a custom 404 Error page
 
-Remove browser bugs (only needed for really old browsers):
+Remove browser bugs only needed for really old browsers):
 
 ```apacheconf
 BrowserMatch ^Mozilla/4 gzip-only-text/html
@@ -311,7 +368,9 @@ Header append Vary User-Agent
 </IfModule>
 ```
 
-301 Redirect syntax (two versions:
+### 301 Redirect syntax
+
+> (two versions):
 
 ```apacheconf
 Redirect 301 /oldpage.html http://www.yoursite.com/newpage.html
@@ -320,6 +379,10 @@ Redirect 301 /oldpage2.html http://www.yoursite.com/folder/
 RedirectMatch 301 /oldpage.html http://www.yoursite.com/newpage.html
 RedirectMatch 301 /oldpage2.html http://www.yoursite.com/folder/
 ```
+
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
+### Hide page extensions
 
 Here are 4 versions for hiding the extension of your pages (`.html` or `.php`). I tried a couple of these for my portfolio page, which is an HTML file, that I loaded into my `public_html` folder alongside my WordPress install. Nothing I did worked so I need to research these in particular. I didn't want to mess with it too much because WordPress is using the same `.htaccess` file:
 
@@ -379,12 +442,17 @@ RewriteRule ^(.*)$ $1.html
 </IfModule>
 # END custom rewrite rule
 ```
-Default language and charset though I do not think this is necessary:
+
+### Default language and charset
+
+> though I do not think this is necessary:
 
 ```apacheconf
 DefaultLanguage en
 AddDefaultCharset UTF-8
 ```
+
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
 ## Woocommerce
 
@@ -403,7 +471,9 @@ define( 'WC_REMOVE_ALL_DATA', true );
 ```
 ** HUGE NOTE**: You have to have the plugin installed before you add the code to `wp-config.php`. Then when you deactivate the plugin and remove it the cod will run and remove everything (see bottom of this file).
 
-## Redirect syntax
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
+### Redirect syntax
 
 Is Bluehost running on Apache or a different server?
 
@@ -458,6 +528,8 @@ I had one already done with `RedirectMatch`:
 RedirectMatch 301 /shop/ https://fairmountpetservice.com/Blog/
 ```
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
+
 ### Bluehost Nameservers
 
 In case they are needed:
@@ -466,6 +538,8 @@ In case they are needed:
 ns1.bluehost.com	162.88.60.37
 ns2.bluehost.com	162.88.61.37
 ```
+
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
 ### The deactivation code
 
@@ -487,6 +561,8 @@ Looks like the uninstall.php file is doing the following things:
 12. foreach delete of term attributes line 87
 13. delete orphan records, terms, and term meta line 96
 14. wp_cache_flush line 109
+
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
 ### MySQL queries to check for Woocommerce fields
 
@@ -518,3 +594,4 @@ So the removal process ran the code snippet in the config file most likely becau
 
 Please open an issue if you know better htaccess code snippets than are listed here, or if you want to add better desriptions and notes. I would like to make this readme file a go-to resource for developers.
 
+<div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
