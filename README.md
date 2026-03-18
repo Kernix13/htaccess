@@ -6,7 +6,7 @@ htaccess code snippets from my research on how to:
 2. Speed up WordPress
 3. And some miscelleaneous stuff
 
-I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. Some of  the snippets are WordPress specific, others are general purpose.
+I know some of these are accurate but I'm not positive on the effectiveness or quality of the commands - use at your own discretion! Do your own research to double-check what I have here. Some of the snippets are WordPress specific, others are general purpose.
 
 Some of the snippets are short so I am not adding links to each individual code block, but you will see them nested under the main category.
 
@@ -50,7 +50,7 @@ Some of the snippets are short so I am not adding links to each individual code 
 
 The first code snippet is automatically added when you install WordPress. However, the code blocks after the basic install block is for installing WordPress on a subdomain or in subfolders. I also have a link for the code for WordPress multi-sites. Don't use a plugin if you do not need to for these scenarios
 
-### Single install 
+### Single install
 
 Default code for single installs of WordPress:
 
@@ -66,7 +66,8 @@ RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
 ```
-- - - 
+
+---
 
 For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1. Subfolder example, 2. SubDomain example. Go to [WordPress htaccess Multisite](https://wordpress.org/support/article/htaccess/#multisite) for the code.
 
@@ -77,7 +78,7 @@ For WordPress multi-site installs, there are 2 versions of the htaccess rules: 1
 If WordPress is installed in a subdirectory, WordPress creates & uses the following .htaccess directives (subdirectory here is `/wordpress/`):
 
 ```apacheconf
-# BEGIN WordPress	
+# BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /wordpress/
@@ -92,11 +93,11 @@ RewriteRule . /wordpress/index.php [L]
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
 
-## Code for Security 
+## Code for Security
 
 My goal for this section is to do as much security as I can myself and then look for a slim plugin to cover the rest. I know there are additional security snippets that you can add into other files like `wp-config.php`. The question is: **How can I find out everything that Wordfence does?** Then how do I find a plugin that covers the areas that the code below doesn't cover?
 
-> What about 'Allow from sx.xxx.xxx.xxx' for all your IPs? 
+> What about 'Allow from sx.xxx.xxx.xxx' for all your IPs?
 
 Choose to limit login attempts in those cases. for security involving `php.ini` or `php5.ini`:
 
@@ -184,6 +185,7 @@ RewriteCond %{REMOTE_ADDR} !^IP Address Three$
 RewriteRule ^(.*)$ - [R=403,L]
 </IfModule>
 ```
+
 To prevent directory browsing by hiding WordPress directions use: `Options All -Indexes`
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
@@ -198,9 +200,11 @@ RewriteCond %{REQUEST_URI} !^/wp-content/themes/file/to/exclude\.php
 RewriteCond %{REQUEST_URI} !^/wp-content/themes/directory/to/exclude/
 RewriteRule wp-content/themes/(.*\.php)$ - [R=404,L]
 ```
-Restrict PHP File Execution (hopefully not WordPress PHP files):
+
+Restrict PHP File Execution:
 
 ```apacheconf
+<Directory "/var/www/wp-content/uploads/">
 <Files "*.php">
 Order Deny,Allow
 Deny from All
@@ -235,7 +239,8 @@ RewriteRule ^wp-includes/theme-compat/ - [F,L]
 </IfModule>
 ```
 
-Prevent Username Enumeration: 
+Prevent Username Enumeration:
+
 ```apacheconf
 RewriteCond %{QUERY_STRING} author=d
 RewriteRule ^ /? [L,R=301]
@@ -253,7 +258,7 @@ Right now I only have two categories of snippets here: 1. EXPIRES HEADER CACHING
 
 ### Enable Browser Cache
 
-Enable Browser Cache (double-check these values). I'm nt sure if these help with speed or if they are  just best practices that browsers want you to set. Perhaps both. The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
+Enable Browser Cache (double-check these values). I'm nt sure if these help with speed or if they are just best practices that browsers want you to set. Perhaps both. The more "unique" ones from [WP Rocket Browser Caching](https://docs.wp-rocket.me/article/80-browser-caching):
 
 ```apacheconf
 ## EXPIRES HEADER CACHING ##
@@ -354,6 +359,7 @@ AddOutputFilterByType DEFLATE font/opentype font/ttf font/eot font/otf
 ## Miscellaneous Code
 
 Some other options other than what you see below are:
+
 - Remove the slash "/" at the end of the URL
 - Create a custom 404 Error page
 
@@ -403,8 +409,8 @@ RewriteRule ^([^\.]+)$ $1.html [NC, L]
 ```apacheconf
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.html [NC,L] 
-RewriteRule ^([^\.]+)$ $1.php [NC,L] 
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
 ```
 
 ```apacheconf
@@ -419,6 +425,7 @@ RewriteRule (.*)$ /$1/ [R=301,L]
 ```
 
 Here is the code that WordPress generates. Do I need `<IfModule mod_rewrite.c>` and `</IfModule>`?
+
 ```apacheconf
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -432,6 +439,7 @@ RewriteRule . /index.php [L]
 ```
 
 Here is what I tried after END WordPress and it did not work:
+
 ```apacheconf
 # BEGIN custom rewrite for html files
 <IfModule mod_rewrite.c>
@@ -467,8 +475,9 @@ Woocommerce instructions for full removal of their plugin
 
 ```php
 define( 'WC_REMOVE_ALL_DATA', true );
-/* That’s all, stop editing! Happy publishing. */ 
+/* That’s all, stop editing! Happy publishing. */
 ```
+
 ** HUGE NOTE**: You have to have the plugin installed before you add the code to `wp-config.php`. Then when you deactivate the plugin and remove it the cod will run and remove everything (see bottom of this file).
 
 <div align="right">&#8673; <a href="#back-to-top" title="Table of Contents">Back to Top</a></div>
@@ -477,7 +486,7 @@ define( 'WC_REMOVE_ALL_DATA', true );
 
 Is Bluehost running on Apache or a different server?
 
-This is the basic format from CSS Tricks [301 Redirects article](https://css-tricks.com/snippets/htaccess/301-redirects/)  (Apache servers only):
+This is the basic format from CSS Tricks [301 Redirects article](https://css-tricks.com/snippets/htaccess/301-redirects/) (Apache servers only):
 
 ```apacheconf
 Redirect 301 /oldpage.html http://www.yoursite.com/newpage.html
@@ -522,7 +531,7 @@ Redirect 301 /products/ https://fairmountpetservice.com/Blog/
 RedirectMatch 301 /products/ https://fairmountpetservice.com/Blog/
 ```
 
-I had one already done with `RedirectMatch`: 
+I had one already done with `RedirectMatch`:
 
 ```apacheconf
 RedirectMatch 301 /shop/ https://fairmountpetservice.com/Blog/
@@ -549,14 +558,14 @@ Looks like the uninstall.php file is doing the following things:
 
 1. Unschedules all events attached to woo hooks using wp_clear_scheduled_hook starting on line 15
 2. Dropping Woocommerce admin tables using ::drop_tables() on line 31
-3. Removing "roles + caps" using ::remove_roles() on line 36 
+3. Removing "roles + caps" using ::remove_roles() on line 36
 4. Trashing pages using wp_trash_post( get_option ( 'various woocommerce page id names' ) ) starting on line 39
-5. doing something with attributes if there are tables prefixed with woocommerce_... starting on line 48
-6. dropping woo tables again, this time I assume for the plugin as opposed to the admin area on line 55 
+5. doing something with attributes if there are tables prefixed with woocommerce\_... starting on line 48
+6. dropping woo tables again, this time I assume for the plugin as opposed to the admin area on line 55
 7. delete woo records in the options table lines 58 & 59
-8. delete woo records in the usermeta table line 62 
+8. delete woo records in the usermeta table line 62
 9. delete posts and data (posts, postmeta, comments, commentsmeta) starting on line 65
-10. conditional delete of taxonomies & attributes if > WP version 4.2, line 75 (2 lines directly below): 
+10. conditional delete of taxonomies & attributes if > WP version 4.2, line 75 (2 lines directly below):
 11. foreach delete of term taxonomies line 77
 12. foreach delete of term attributes line 87
 13. delete orphan records, terms, and term meta line 96
